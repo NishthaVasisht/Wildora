@@ -5,11 +5,11 @@ import { gsap } from "gsap";
 import Landing from "@/react-app/pages/Landing";
 import Eras from "@/react-app/pages/Eras";
 import Lyrics from "@/react-app/pages/Lyrics";
-import Quiz from "@/react-app/pages/Quiz";
+import FanTheoryRoom from "@/react-app/pages/FanTheoryRoom";
+// import Quiz from "@/react-app/pages/Quiz";
 import EnhancedQuiz from "@/react-app/pages/EnhancedQuiz";
 import Social from "@/react-app/pages/Social";
 import AuthCallback from "@/react-app/pages/AuthCallback";
-import CustomCursor from "@/react-app/components/CustomCursor";
 
 export default function App() {
   const location = useLocation();
@@ -29,19 +29,17 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <div className="cursor-none">
-        <CustomCursor />
         <div className="page">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Landing />} />
             <Route path="/eras" element={<Eras />} />
+            <Route path="/theory" element={<FanTheoryRoom />} />
             <Route path="/lyrics" element={<Lyrics />} />
             <Route path="/quiz" element={<EnhancedQuiz />} />
             <Route path="/social" element={<Social />} />
             <Route path="/auth/callback" element={<AuthCallback />} />
           </Routes>
         </div>
-      </div>
     </AuthProvider>
   );
 }

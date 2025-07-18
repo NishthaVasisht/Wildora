@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Plus, X, Heart, Download, Share2, Sparkles } from 'lucide-react';
-import { useUserProfile } from '@/react-app/hooks/useUserProfile';
+import { useState } from 'react';
+import { Plus, X, Heart, Share2 } from 'lucide-react';
+// import { useUserProfile } from '@/react-app/hooks/useUserProfile';
 
 interface MoodItem {
   id: string;
@@ -129,7 +129,7 @@ export default function MoodBoard() {
     era: 'midnights',
     items: []
   });
-  const { profile } = useUserProfile();
+  // const { profile } = useUserProfile();
 
   const handleCreateBoard = () => {
     if (!newBoard.title) return;

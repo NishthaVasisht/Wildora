@@ -3,21 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { gsap } from 'gsap';
 
-export default function Landing() {
+const backgroundImage =
+  'https://i.pinimg.com/1200x/d3/14/3d/d3143d354ab64e050ed262f1fce29000.jpg';
+
+const Landing: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
+  const bgImageRef = useRef<HTMLImageElement>(null);
+  const particleOverlayRef = useRef<HTMLDivElement>(null);
+  const vignetteRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  // Entrance animation
   useEffect(() => {
+    // Preload background image
+    const img = new Image();
+    img.src = backgroundImage;
+
+    // Intro animation for text elements
     if (!titleRef.current || !subtitleRef.current || !buttonRef.current) return;
 
-    gsap.set(
-      [titleRef.current, subtitleRef.current, buttonRef.current],
-      { opacity: 0, y: 60 }
-    );
+    gsap.set([titleRef.current, subtitleRef.current, buttonRef.current], {
+      opacity: 0,
+      y: 60,
+    });
 
     const tl = gsap.timeline();
 
@@ -48,6 +58,7 @@ export default function Landing() {
         '-=0.6'
       );
 
+    // Sparkles loop
     gsap.to('.floating-sparkle', {
       duration: 3,
       y: '-=20',
@@ -58,9 +69,46 @@ export default function Landing() {
       ease: 'power2.inOut',
       stagger: 0.2,
     });
+
+    // Background slow zoom and pan animation
+    if (bgImageRef.current) {
+      gsap.fromTo(
+        bgImageRef.current,
+        { scale: 1.05, xPercent: 5, yPercent: 5 },
+        {
+          scale: 1,
+          xPercent: -5,
+          yPercent: -5,
+          duration: 15,
+          ease: 'power1.inOut',
+          repeat: -1,
+          yoyo: true,
+        }
+      );
+    }
+
+    // Particle overlay animation
+    if (particleOverlayRef.current) {
+      gsap.to(particleOverlayRef.current, {
+        duration: 20,
+        backgroundPosition: '100% 100%',
+        ease: 'linear',
+        repeat: -1,
+      });
+    }
+
+    // Vignette subtle pulse
+    if (vignetteRef.current) {
+      gsap.to(vignetteRef.current, {
+        duration: 8,
+        opacity: 0.3,
+        ease: 'power1.inOut',
+        repeat: -1,
+        yoyo: true,
+      });
+    }
   }, []);
 
-  // Exit animation + navigation
   const handleNavigation = (): void => {
     if (
       !titleRef.current ||
@@ -72,7 +120,7 @@ export default function Landing() {
 
     const tl = gsap.timeline({
       onComplete: () => {
-        navigate('/eras'); // Let React Router handle routing
+        navigate('/eras');
       },
     });
 
@@ -88,8 +136,6 @@ export default function Landing() {
       {
         duration: 0.5,
         opacity: 0,
-        background:
-          'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
         ease: 'power2.in',
       },
       '-=0.3'
@@ -99,23 +145,57 @@ export default function Landing() {
   return (
     <div
       ref={heroRef}
-      className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-900 via-pink-800 to-red-600"
+      className="min-h-screen relative overflow-hidden bg-black"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/40 via-pink-500/30 to-amber-400/20 animate-pulse" />
+      {/* Animated Background Image */}
+      <img
+        ref={bgImageRef}
+        src={backgroundImage}
+        alt="Background"
+        onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) =>
+          (e.currentTarget.src = '/fallback.jpg')
+        }
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Particle Overlay */}
+      <div
+        ref={particleOverlayRef}
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `url('https://www.transparenttextures.com/patterns/stardust.png')`,
+          backgroundSize: '200px 200px',
+        }}
+      />
+
+      {/* Vignette Effect */}
+      <div
+        ref={vignetteRef}
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.7) 100%)',
+        }}
+      />
+
+      {/* Existing Overlay */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      {/* Sparkles */}
       <div className="absolute inset-0 pointer-events-none">
-        {Array.from({ length: 8 }).map((_, i) => (
+        {Array.from({ length: 12 }).map((_, i) => (
           <Sparkles
             key={i}
-            className="floating-sparkle absolute text-white/20 w-6 h-6"
+            className="floating-sparkle absolute text-white/30 w-6 h-6"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.5}s`,
+              animationDelay: `${i * 0.4}s`,
             }}
           />
         ))}
       </div>
 
+      {/* Hero Content */}
       <div className="relative z-10 flex items-center justify-center min-h-screen px-4">
         <div className="text-center max-w-4xl mx-auto">
           <h1
@@ -124,7 +204,7 @@ export default function Landing() {
           >
             Welcome to
             <span className="block bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-            Wildora
+              Wildora
             </span>
           </h1>
 
@@ -151,4 +231,6 @@ export default function Landing() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent" />
     </div>
   );
-}
+};
+
+export default Landing;

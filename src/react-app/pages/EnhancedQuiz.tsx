@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, RotateCcw, Clock, Star, Trophy } from 'lucide-react';
+import { ArrowRight, RotateCcw, Clock, Star } from 'lucide-react';
 import Navbar from '@/react-app/components/Navbar';
 import AchievementNotification from '@/react-app/components/AchievementNotification';
 import { useUserProfile } from '@/react-app/hooks/useUserProfile';

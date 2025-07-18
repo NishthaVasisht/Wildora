@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Heart, MessageCircle, Share, MoreHorizontal, User } from 'lucide-react';
+import { useState } from 'react';
+import { Heart, MessageCircle, Share, MoreHorizontal } from 'lucide-react';
 import Navbar from '@/react-app/components/Navbar';
 import MoodBoard from '@/react-app/components/MoodBoard';
 import EasterEggHunt from '@/react-app/components/EasterEggHunt';

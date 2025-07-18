@@ -1,10 +1,11 @@
 import { Link, useLocation } from 'react-router';
-import { Music, Heart, Search, HelpCircle, Users, LogIn, LogOut, User, Settings, Coins } from 'lucide-react';
+import { Music, Heart, Search, HelpCircle, Users, LogIn, LogOut, User, Coins } from 'lucide-react';
 import { useAuth } from '@getmocha/users-service/react';
 import { useState } from 'react';
 import LoginModal from './LoginModal';
 import EraSelector from './EraSelector';
 import EraSwitcher from './EraSwitcher';
+// import FanTheoryRoom from '../pages/FanTheoryRoom';
 import { useUserProfile } from '@/react-app/hooks/useUserProfile';
 
 export default function Navbar() {
@@ -19,6 +20,7 @@ export default function Navbar() {
     { path: '/lyrics', label: 'Lyrics', icon: Search },
     { path: '/quiz', label: 'Quiz', icon: HelpCircle },
     { path: '/social', label: 'Social', icon: Users },
+    { path: '/theory', label: 'Theory', icon: Heart },
   ];
 
   const handleLogout = async () => {
@@ -37,20 +39,20 @@ export default function Navbar() {
     }
   };
 
-  const getEraColors = (era: string) => {
-    const eraColors = {
-      'fearless': 'from-yellow-400 to-amber-500',
-      'red': 'from-red-500 to-red-700',
-      '1989': 'from-sky-400 to-blue-600',
-      'reputation': 'from-gray-800 to-black',
-      'lover': 'from-pink-300 to-purple-400',
-      'folklore': 'from-gray-400 to-gray-600',
-      'evermore': 'from-amber-600 to-orange-800',
-      'midnights': 'from-indigo-900 to-purple-900',
-      'tortured-poets': 'from-stone-600 to-slate-800'
-    };
-    return eraColors[era as keyof typeof eraColors] || 'from-purple-900 to-pink-800';
-  };
+  // const getEraColors = (era: string) => {
+  //   const eraColors = {
+  //     'fearless': 'from-yellow-400 to-amber-500',
+  //     'red': 'from-red-500 to-red-700',
+  //     '1989': 'from-sky-400 to-blue-600',
+  //     'reputation': 'from-gray-800 to-black',
+  //     'lover': 'from-pink-300 to-purple-400',
+  //     'folklore': 'from-gray-400 to-gray-600',
+  //     'evermore': 'from-amber-600 to-orange-800',
+  //     'midnights': 'from-indigo-900 to-purple-900',
+  //     'tortured-poets': 'from-stone-600 to-slate-800'
+  //   };
+  //   return eraColors[era as keyof typeof eraColors] || 'from-purple-900 to-pink-800';
+  // };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/10 border-b border-white/20">

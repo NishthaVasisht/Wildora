@@ -6,10 +6,6 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-html, body, button, a, input, textarea, select, * {
-  cursor: none !important;
-}
-
 body {
   overflow-x: hidden;
 }
