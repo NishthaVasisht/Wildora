@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUp, Heart, Sparkles, MessageCircle } from 'lucide-react';
+import { ArrowUp, Heart, MessageCircle } from 'lucide-react';
 import { gsap } from 'gsap';
 import Navbar from '@/react-app/components/Navbar';
 
